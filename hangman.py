@@ -1,6 +1,7 @@
 #import random and wordlist to pick from
 import random
 from hangmanword import wordlist
+from hangmanimage import hmimage
 
 #pick single word from wordlist
 def chooseword(wordlist):
@@ -16,6 +17,7 @@ def hangman():
     lives=7
     guessedletters=set()
     template=list(len(word)*'-')
+    hmimage(lives)
     #guess validation and game continuation
     while lives>0 and '-' in template: #continue to prompt for letters while lives remaining
         guess=''
@@ -32,6 +34,7 @@ def hangman():
             if guess not in letters:
                 print("That is not a valid letter, please try again")
         #test for correctness
+        
         if guess in word:
             print("Good guess!")
             for i in range(len(word)):
@@ -40,8 +43,9 @@ def hangman():
         else:
             print(f"Sorry, {guess} is not in your word.")
             lives-=1
+        print("\n"*2)
+        hmimage(lives)
         guessedletters.add(guess)
-        print('\n')
     if '-' not in template: #win message
         print('Congratulations, you guessed right!')
     else: #loss message
